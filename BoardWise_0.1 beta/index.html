@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoardWise: Room & Billing Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile header -->
+    <div class="mobile-header">
+        <div class="mobile-logo">
+            <i class="fas fa-hotel"></i>
+            <span data-i18n="appName">BoardWise</span>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="fas fa-hotel"></i>
+                <span data-i18n="appName">BoardWise</span>
+            </div>
+            
+            <div class="buttons">
+                <div class="button active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span data-i18n="dashboard">Dashboard</span>
+                </div>
+                <div class="button" data-page="room-management">
+                    <i class="fas fa-bed"></i>
+                    <span data-i18n="roomManagement">Room Management</span>
+                </div>
+                <div class="button" data-page="billing">
+                    <i class="fas fa-receipt"></i>
+                    <span data-i18n="billingInvoices">Billing & Invoices</span>
+                </div>
+                <div class="button" data-page="guests">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="guests">Guests</span>
+                </div>
+                <div class="button" data-page="reservations">
+                    <i class="fas fa-calendar"></i>
+                    <span data-i18n="reservations">Reservations</span>
+                </div>
+                <div class="button" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span data-i18n="settings">Settings</span>
+                </div>
+            </div>
+            
+            <!-- Language Selector in Sidebar -->
+            <div class="language-selector-sidebar">
+                <label for="languageSelectSidebar" data-i18n="language">Language:</label>
+                <select id="languageSelectSidebar">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Page -->
+            <div class="page active" id="dashboard-page">
+                <header>
+                    <h1 data-i18n="roomBillingDashboard">Room & Billing Dashboard</h1>
+                    <div class="user-info">
+                        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User">
+                        <div>
+                            <div data-i18n="manager">Manager</div>
+                            <div class="user-role" data-i18n="administrator">Administrator</div>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title" data-i18n="occupiedRooms">Occupied Rooms</div>
+                            <div class="card-icon">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                        </div>
+                        <div class="stat">12/24</div>
+                        <div class="stat-desc" data-i18n="occupancyRate">50% occupancy rate</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title" data-i18n="todaysRevenue">Today's Revenue</div>
+                            <div class="card-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat">$2,845</div>
+                        <div class="stat-desc" data-i18n="revenueIncrease">+15% from yesterday</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title" data-i18n="pendingCheckins">Pending Check-ins</div>
+                            <div class="card-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="stat">5</div>
+                        <div class="stat-desc" data-i18n="vipGuests">2 VIP guests</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title" data-i18n="unpaidInvoices">Unpaid Invoices</div>
+                            <div class="card-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                        <div class="stat">3</div>
+                        <div class="stat-desc" data-i18n="totalAmount">Total: $1,240</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 data-i18n="roomStatusOverview">Room Status Overview</h2>
+                    <div class="room-status-grid">
+                        <div class="room-status-item available">
+                            <div class="room-status-icon">
+                                <i class="fas fa-door-open"></i>
+                            </div>
+                            <div class="room-status-content">
+                                <div class="room-status-title" data-i18n="availableRooms">Available Rooms</div>
+                                <div class="room-status-count">12</div>
+                            </div>
+                        </div>
+                        
+                        <div class="room-status-item occupied">
+                            <div class="room-status-icon">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="room-status-content">
+                                <div class="room-status-title" data-i18n="occupiedRooms">Occupied Rooms</div>
+                                <div class="room-status-count">8</div>
+                            </div>
+                        </div>
+                        
+                        <div class="room-status-item maintenance">
+                            <div class="room-status-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="room-status-content">
+                                <div class="room-status-title" data-i18n="maintenance">Maintenance</div>
+                                <div class="room-status-count">3</div>
+                            </div>
+                        </div>
+                        
+                        <div class="room-status-item cleaning">
+                            <div class="room-status-icon">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                            <div class="room-status-content">
+                                <div class="room-status-title" data-i18n="cleaning">Cleaning</div>
+                                <div class="room-status-count">1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 data-i18n="recentBills">Recent Bills</h2>
+                    <div class="table-container">
+                        <table class="billing-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="invoiceNumber">Invoice #</th>
+                                    <th data-i18n="guestName">Guest Name</th>
+                                    <th data-i18n="roomNumber">Room #</th>
+                                    <th data-i18n="amount">Amount</th>
+                                    <th data-i18n="status">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>INV-0058</td>
+                                    <td>John Smith</td>
+                                    <td>204</td>
+                                    <td>$320.00</td>
+                                    <td><span class="status-badge paid" data-i18n="paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0057</td>
+                                    <td>Emma Johnson</td>
+                                    <td>312</td>
+                                    <td>$485.50</td>
+                                    <td><span class="status-badge pending" data-i18n="pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0056</td>
+                                    <td>Robert Williams</td>
+                                    <td>105</td>
+                                    <td>$225.75</td>
+                                    <td><span class="status-badge paid" data-i18n="paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>INV-0055</td>
+                                    <td>Maria Garcia</td>
+                                    <td>408</td>
+                                    <td>$620.00</td>
+                                    <td><span class="status-badge overdue" data-i18n="overdue">Overdue</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Page -->
+            <div class="page" id="settings-page">
+                <header>
+                    <h1 data-i18n="settings">Settings</h1>
+                    <div class="user-info">
+                        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User" id="profileImage">
+                        <div>
+                            <div data-i18n="manager">Manager</div>
+                            <div class="user-role" data-i18n="administrator">Administrator</div>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="settings-container">
+                    <!-- Language Settings -->
+                    <div class="settings-section">
+                        <h2><i class="fas fa-language"></i> <span data-i18n="languageSettings">Language Settings</span></h2>
+                        <div class="settings-content">
+                            <div class="setting-item">
+                                <label for="languageSelect" data-i18n="interfaceLanguage">Interface Language</label>
+                                <select id="languageSelect">
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="zh">中文</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-item toggle">
+                                <div>
+                                    <label for="autoTranslate" data-i18n="autoTranslate">Auto-Translate Content</label>
+                                    <p data-i18n="autoTranslateDesc">Automatically translate user-generated content</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="autoTranslate">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile Section -->
+                    <div class="settings-section">
+                        <h2><i class="fas fa-user-circle"></i> <span data-i18n="profileSettings">Profile Settings</span></h2>
+                        <div class="settings-content">
+                            <div class="profile-picture-section">
+                                <div class="profile-image-container">
+                                    <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="Profile" id="profilePreview">
+                                    <div class="profile-overlay" id="changeImageBtn">
+                                        <i class="fas fa-camera"></i>
+                                        <span data-i18n="change">Change</span>
+                                    </div>
+                                </div>
+                                <input type="file" id="profileUpload" accept="image/*" style="display: none;">
+                                <div class="profile-info">
+                                    <h3>John Doe</h3>
+                                    <p data-i18n="administrator">Administrator</p>
+                                    <p data-i18n="lastUpdated">Last updated: <span id="lastUpdated">Today</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Appearance Section -->
+                    <div class="settings-section">
+                        <h2><i class="fas fa-paint-brush"></i> <span data-i18n="appearance">Appearance</span></h2>
+                        <div class="settings-content">
+                            <div class="setting-item">
+                                <label for="themeSelect" data-i18n="theme">Theme</label>
+                                <select id="themeSelect">
+                                    <option value="light" data-i18n="lightMode">Light Mode</option>
+                                    <option value="dark" data-i18n="darkMode">Dark Mode</option>
+                                    <option value="auto" data-i18n="autoSystem">Auto (System)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label for="fontSize" data-i18n="fontSize">Font Size</label>
+                                <input type="range" id="fontSize" min="12" max="24" value="16">
+                                <span id="fontSizeValue">16px</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notifications Section -->
+                    <div class="settings-section">
+                        <h2><i class="fas fa-bell"></i> <span data-i18n="notifications">Notifications</span></h2>
+                        <div class="settings-content">
+                            <div class="setting-item toggle">
+                                <div>
+                                    <label for="emailNotifications" data-i18n="emailNotifications">Email Notifications</label>
+                                    <p data-i18n="emailNotificationsDesc">Receive notifications via email</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item toggle">
+                                <div>
+                                    <label for="pushNotifications" data-i18n="pushNotifications">Push Notifications</label>
+                                    <p data-i18n="pushNotificationsDesc">Receive browser notifications</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="pushNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item toggle">
+                                <div>
+                                    <label for="soundNotifications" data-i18n="soundAlerts">Sound Alerts</label>
+                                    <p data-i18n="soundAlertsDesc">Play sound for notifications</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="soundNotifications">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other pages (initially hidden) -->
+            <div class="page" id="room-management-page">
+                <header>
+                    <h1 data-i18n="roomManagement">Room Management</h1>
+                    <div class="user-info">
+                        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User">
+                        <div>
+                            <div data-i18n="manager">Manager</div>
+                            <div class="user-role" data-i18n="administrator">Administrator</div>
+                        </div>
+                    </div>
+                </header>
+                <div class="card">
+                    <h2 data-i18n="roomManagementContent">Room Management Content</h2>
+                    <p data-i18n="underDevelopment">This page is under development. Check back later for room management features.</p>
+                </div>
+            </div>
+            
+            <div class="page" id="billing-page">
+                <header>
+                    <h1 data-i18n="billingInvoices">Billing & Invoices</h1>
+                    <div class="user-info">
+                        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User">
+                        <div>
+                            <div data-i18n="manager">Manager</div>
+                            <div class="user-role" data-i18n="administrator">Administrator</div>
+                        </div>
+                    </div>
+                </header>
+                <div class="card">
+                    <h2 data-i18n="billingContent">Billing & Invoices Content</h2>
+                    <p data-i18n="underDevelopment">This page is under development. Check back later for billing features.</p>
+                </div>
+            </div>
+            
+            <div class="page" id="guests-page">
+                <header>
+                    <h1 data-i18n="guests">Guests</h1>
+                    <div class="user-info">
+                        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User">
+                        <div>
+                            <div data-i18n="manager">Manager</div>
+                            <div class="user-role" data-i18n="administrator">Administrator</div>
+                        </div>
+                    </div>
+                </header>
+                <div class="card">
+                    <h2 data-i18n="guestsContent">Guests Content</h2>
+                    <p data-i18n="underDevelopment">This page is under development. Check back later for guest management features.</p>
+                </div>
+            </div>
+            
+            <div class="page" id="reservations-page">
+                <header>
+                    <h1 data-i18n="reservations">Reservations</h1>
+                    <div class="user-info">
+                        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User">
+                        <div>
+                            <div data-i18n="manager">Manager</div>
+                            <div class="user-role" data-i18n="administrator">Administrator</div>
+                        </div>
+                    </div>
+                </header>
+                <div class="card">
+                    <h2 data-i18n="reservationsContent">Reservations Content</h2>
+                    <p data-i18n="underDevelopment">This page is under development. Check back later for reservation features.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p data-i18n="copyright">Copyright © 2023 BoardWise Boarding House System. All rights reserved.</p>
+    </footer>
+    
+    <!-- Language translation data -->
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                appName: "BoardWise",
+                dashboard: "Dashboard",
+                roomManagement: "Room Management",
+                billingInvoices: "Billing & Invoices",
+                guests: "Guests",
+                reservations: "Reservations",
+                settings: "Settings",
+                roomBillingDashboard: "Room & Billing Dashboard",
+                manager: "Manager",
+                administrator: "Administrator",
+                occupiedRooms: "Occupied Rooms",
+                occupancyRate: "50% occupancy rate",
+                todaysRevenue: "Today's Revenue",
+                revenueIncrease: "+15% from yesterday",
+                pendingCheckins: "Pending Check-ins",
+                vipGuests: "2 VIP guests",
+                unpaidInvoices: "Unpaid Invoices",
+                totalAmount: "Total: $1,240",
+                roomStatusOverview: "Room Status Overview",
+                availableRooms: "Available Rooms",
+                occupiedRooms: "Occupied Rooms",
+                maintenance: "Maintenance",
+                cleaning: "Cleaning",
+                recentBills: "Recent Bills",
+                invoiceNumber: "Invoice #",
+                guestName: "Guest Name",
+                roomNumber: "Room #",
+                amount: "Amount",
+                status: "Status",
+                paid: "Paid",
+                pending: "Pending",
+                overdue: "Overdue",
+                languageSettings: "Language Settings",
+                interfaceLanguage: "Interface Language",
+                autoTranslate: "Auto-Translate Content",
+                autoTranslateDesc: "Automatically translate user-generated content",
+                profileSettings: "Profile Settings",
+                change: "Change",
+                lastUpdated: "Last updated:",
+                appearance: "Appearance",
+                theme: "Theme",
+                lightMode: "Light Mode",
+                darkMode: "Dark Mode",
+                autoSystem: "Auto (System)",
+                fontSize: "Font Size",
+                notifications: "Notifications",
+                emailNotifications: "Email Notifications",
+                emailNotificationsDesc: "Receive notifications via email",
+                pushNotifications: "Push Notifications",
+                pushNotificationsDesc: "Receive browser notifications",
+                soundAlerts: "Sound Alerts",
+                soundAlertsDesc: "Play sound for notifications",
+                roomManagementContent: "Room Management Content",
+                billingContent: "Billing & Invoices Content",
+                guestsContent: "Guests Content",
+                reservationsContent: "Reservations Content",
+                underDevelopment: "This page is under development. Check back later for more features.",
+                copyright: "Copyright © 2023 BoardWise Boarding House System. All rights reserved.",
+                language: "Language:"
+            },
+            es: {
+                appName: "BoardWise",
+                dashboard: "Panel de Control",
+                roomManagement: "Gestión de Habitaciones",
+                billingInvoices: "Facturación y Recibos",
+                guests: "Huéspedes",
+                reservations: "Reservas",
+                settings: "Configuración",
+                roomBillingDashboard: "Panel de Habitaciones y Facturación",
+                manager: "Gerente",
+                administrator: "Administrador",
+                occupiedRooms: "Habitaciones Ocupadas",
+                occupancyRate: "50% de ocupación",
+                todaysRevenue: "Ingresos de Hoy",
+                revenueIncrease: "+15% desde ayer",
+                pendingCheckins: "Check-ins Pendientes",
+                vipGuests: "2 huéspedes VIP",
+                unpaidInvoices: "Facturas Pendientes",
+                totalAmount: "Total: $1,240",
+                roomStatusOverview: "Resumen de Estado de Habitaciones",
+                availableRooms: "Habitaciones Disponibles",
+                occupiedRooms: "Habitaciones Ocupadas",
+                maintenance: "Mantenimiento",
+                cleaning: "Limpieza",
+                recentBills: "Facturas Recientes",
+                invoiceNumber: "N° de Factura",
+                guestName: "Nombre del Huésped",
+                roomNumber: "N° de Habitación",
+                amount: "Monto",
+                status: "Estado",
+                paid: "Pagado",
+                pending: "Pendiente",
+                overdue: "Vencido",
+                languageSettings: "Configuración de Idioma",
+                interfaceLanguage: "Idioma de Interfaz",
+                autoTranslate: "Traducir Contenido Automáticamente",
+                autoTranslateDesc: "Traducir automáticamente el contenido generado por usuarios",
+                profileSettings: "Configuración de Perfil",
+                change: "Cambiar",
+                lastUpdated: "Última actualización:",
+                appearance: "Apariencia",
+                theme: "Tema",
+                lightMode: "Modo Claro",
+                darkMode: "Modo Oscuro",
+                autoSystem: "Automático (Sistema)",
+                fontSize: "Tamaño de Fuente",
+                notifications: "Notificaciones",
+                emailNotifications: "Notificaciones por Correo",
+                emailNotificationsDesc: "Recibir notificaciones por correo electrónico",
+                pushNotifications: "Notificaciones Push",
+                pushNotificationsDesc: "Recibir notificaciones del navegador",
+                soundAlerts: "Alertas de Sonido",
+                soundAlertsDesc: "Reproducir sonido para notificaciones",
+                roomManagementContent: "Contenido de Gestión de Habitaciones",
+                billingContent: "Contenido de Facturación y Recibos",
+                guestsContent: "Contenido de Huéspedes",
+                reservationsContent: "Contenido de Reservas",
+                underDevelopment: "Esta página está en desarrollo. Vuelva más tarde para ver más funciones.",
+                copyright: "Derechos de autor © 2023 BoardWise Sistema de Pensión. Todos los derechos reservados.",
+                language: "Idioma:"
+            },
+            fr: {
+                appName: "BoardWise",
+                dashboard: "Tableau de Bord",
+                roomManagement: "Gestion des Chambres",
+                billingInvoices: "Facturation et Notes",
+                guests: "Clients",
+                reservations: "Réservations",
+                settings: "Paramètres",
+                roomBillingDashboard: "Tableau de Bord Chambres et Facturation",
+                manager: "Manager",
+                administrator: "Administrateur",
+                occupiedRooms: "Chambres Occupées",
+                occupancyRate: "50% de taux d'occupation",
+                todaysRevenue: "Revenus d'Aujourd'hui",
+                revenueIncrease: "+15% depuis hier",
+                pendingCheckins: "Enregistrements en Attente",
+                vipGuests: "2 clients VIP",
+                unpaidInvoices: "Factures Impayées",
+                totalAmount: "Total: $1,240",
+                roomStatusOverview: "Aperçu du Statut des Chambres",
+                availableRooms: "Chambres Disponibles",
+                occupiedRooms: "Chambres Occupées",
+                maintenance: "Maintenance",
+                cleaning: "Nettoyage",
+                recentBills: "Factures Récentes",
+                invoiceNumber: "N° de Facture",
+                guestName: "Nom du Client",
+                roomNumber: "N° de Chambre",
+                amount: "Montant",
+                status: "Statut",
+                paid: "Payé",
+                pending: "En Attente",
+                overdue: "En Retard",
+                languageSettings: "Paramètres de Langue",
+                interfaceLanguage: "Langue de l'Interface",
+                autoTranslate: "Traduction Automatique du Contenu",
+                autoTranslateDesc: "Traduire automatiquement le contenu généré par les utilisateurs",
+                profileSettings: "Paramètres de Profil",
+                change: "Changer",
+                lastUpdated: "Dernière mise à jour:",
+                appearance: "Apparence",
+                theme: "Thème",
+                lightMode: "Mode Clair",
+                darkMode: "Mode Sombre",
+                autoSystem: "Auto (Système)",
+                fontSize: "Taille de Police",
+                notifications: "Notifications",
+                emailNotifications: "Notifications par Email",
+                emailNotificationsDesc: "Recevoir des notifications par email",
+                pushNotifications: "Notifications Push",
+                pushNotificationsDesc: "Recevoir des notifications du navigateur",
+                soundAlerts: "Alertes Sonores",
+                soundAlertsDesc: "Jouer un son pour les notifications",
+                roomManagementContent: "Contenu de Gestion des Chambres",
+                billingContent: "Contenu de Facturation et Notes",
+                guestsContent: "Contenu des Clients",
+                reservationsContent: "Contenu des Réservations",
+                underDevelopment: "Cette page est en cours de développement. Revenez plus tard pour plus de fonctionnalités.",
+                copyright: "Droit d'auteur © 2023 BoardWise Système de Pension. Tous droits réservés.",
+                language: "Langue:"
+            },
+            de: {
+                appName: "BoardWise",
+                dashboard: "Dashboard",
+                roomManagement: "Zimmerverwaltung",
+                billingInvoices: "Abrechnung und Rechnungen",
+                guests: "Gäste",
+                reservations: "Reservierungen",
+                settings: "Einstellungen",
+                roomBillingDashboard: "Zimmer- und Abrechnungs-Dashboard",
+                manager: "Manager",
+                administrator: "Administrator",
+                occupiedRooms: "Belegte Zimmer",
+                occupancyRate: "50% Auslastung",
+                todaysRevenue: "Heutige Einnahmen",
+                revenueIncrease: "+15% seit gestern",
+                pendingCheckins: "Ausstehende Check-ins",
+                vipGuests: "2 VIP-Gäste",
+                unpaidInvoices: "Unbezahlte Rechnungen",
+                totalAmount: "Gesamt: $1,240",
+                roomStatusOverview: "Zimmerstatus Übersicht",
+                availableRooms: "Verfügbare Zimmer",
+                occupiedRooms: "Belegte Zimmer",
+                maintenance: "Wartung",
+                cleaning: "Reinigung",
+                recentBills: "Aktuelle Rechnungen",
+                invoiceNumber: "Rechnungsnummer",
+                guestName: "Gastname",
+                roomNumber: "Zimmernummer",
+                amount: "Betrag",
+                status: "Status",
+                paid: "Bezahlt",
+                pending: "Ausstehend",
+                overdue: "Überfällig",
+                languageSettings: "Spracheinstellungen",
+                interfaceLanguage: "Oberflächensprache",
+                autoTranslate: "Inhalte automatisch übersetzen",
+                autoTranslateDesc: "Benutzergenerierte Inhalte automatisch übersetzen",
+                profileSettings: "Profil-Einstellungen",
+                change: "Ändern",
+                lastUpdated: "Zuletzt aktualisiert:",
+                appearance: "Erscheinungsbild",
+                theme: "Thema",
+                lightMode: "Hellmodus",
+                darkMode: "Dunkelmodus",
+                autoSystem: "Auto (System)",
+                fontSize: "Schriftgröße",
+                notifications: "Benachrichtigungen",
+                emailNotifications: "E-Mail-Benachrichtigungen",
+                emailNotificationsDesc: "Benachrichtigungen per E-Mail erhalten",
+                pushNotifications: "Push-Benachrichtigungen",
+                pushNotificationsDesc: "Browser-Benachrichtigungen erhalten",
+                soundAlerts: "Sound-Benachrichtigungen",
+                soundAlertsDesc: "Sound für Benachrichtigungen abspielen",
+                roomManagementContent: "Zimmerverwaltungsinhalt",
+                billingContent: "Abrechnungs- und Rechnungsinhalt",
+                guestsContent: "Gästeinhalt",
+                reservationsContent: "Reservierungsinhalt",
+                underDevelopment: "Diese Seite befindet sich in der Entwicklung. Schauen Sie später vorbei, um weitere Funktionen zu sehen.",
+                copyright: "Urheberrecht © 2023 BoardWise Pension System. Alle Rechte vorbehalten.",
+                language: "Sprache:"
+            },
+            zh: {
+                appName: "BoardWise",
+                dashboard: "仪表板",
+                roomManagement: "房间管理",
+                billingInvoices: "账单和发票",
+                guests: "客人",
+                reservations: "预订",
+                settings: "设置",
+                roomBillingDashboard: "房间和账单仪表板",
+                manager: "经理",
+                administrator: "管理员",
+                occupiedRooms: "已占用房间",
+                occupancyRate: "50% 入住率",
+                todaysRevenue: "今日收入",
+                revenueIncrease: "较昨天增长 15%",
+                pendingCheckins: "待办理入住",
+                vipGuests: "2 位 VIP 客人",
+                unpaidInvoices: "未付发票",
+                totalAmount: "总计: $1,240",
+                roomStatusOverview: "房间状态概览",
+                availableRooms: "可用房间",
+                occupiedRooms: "已占用房间",
+                maintenance: "维护中",
+                cleaning: "清洁中",
+                recentBills: "近期账单",
+                invoiceNumber: "发票编号",
+                guestName: "客人姓名",
+                roomNumber: "房间号",
+                amount: "金额",
+                status: "状态",
+                paid: "已支付",
+                pending: "待处理",
+                overdue: "逾期",
+                languageSettings: "语言设置",
+                interfaceLanguage: "界面语言",
+                autoTranslate: "自动翻译内容",
+                autoTranslateDesc: "自动翻译用户生成的内容",
+                profileSettings: "个人资料设置",
+                change: "更改",
+                lastUpdated: "最后更新:",
+                appearance: "外观",
+                theme: "主题",
+                lightMode: "浅色模式",
+                darkMode: "深色模式",
+                autoSystem: "自动 (系统)",
+                fontSize: "字体大小",
+                notifications: "通知",
+                emailNotifications: "电子邮件通知",
+                emailNotificationsDesc: "通过电子邮件接收通知",
+                pushNotifications: "推送通知",
+                pushNotificationsDesc: "接收浏览器通知",
+                soundAlerts: "声音提醒",
+                soundAlertsDesc: "播放通知声音",
+                roomManagementContent: "房间管理内容",
+                billingContent: "账单和发票内容",
+                guestsContent: "客人内容",
+                reservationsContent: "预订内容",
+                underDevelopment: "此页面正在开发中。请稍后再回来查看更多功能。",
+                copyright: "版权所有 © 2023 BoardWise 寄宿系统。保留所有权利。",
+                language: "语言:"
+            }
+        };
+
+        // Set initial language from localStorage or default to English
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        
+        // Function to change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update language selectors
+            document.getElementById('languageSelect').value = lang;
+            document.getElementById('languageSelectSidebar').value = lang;
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage(currentLanguage);
+            
+            // Add event listeners to language selectors
+            document.getElementById('languageSelect').addEventListener('change', function() {
+                changeLanguage(this.value);
+            });
+            
+            document.getElementById('languageSelectSidebar').addEventListener('change', function() {
+                changeLanguage(this.value);
+            });
+        });
+    </script>
+    
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page') + '-page';
+                
+                // Update active button
+                document.querySelectorAll('.button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show the selected page
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+                
+                // On mobile, close sidebar after selection
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('active') &&
+                !sidebar.contains(event.target) &&
+                !menuToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Settings page functionality
+        // Profile image upload functionality
+        document.getElementById('changeImageBtn').addEventListener('click', function() {
+            document.getElementById('profileUpload').click();
+        });
+
+        document.getElementById('profileUpload').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('profilePreview').src = event.target.result;
+                    document.getElementById('profileImage').src = event.target.result;
+                    document.getElementById('lastUpdated').textContent = 'Just now';
+                    
+                    // Show success message
+                    showNotification('Profile picture updated successfully!');
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Font size slider
+        const fontSizeSlider = document.getElementById('fontSize');
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        
+        fontSizeSlider.addEventListener('input', function() {
+            fontSizeValue.textContent = this.value + 'px';
+            document.documentElement.style.setProperty('--base-font-size', this.value + 'px');
+        });
+
+        // Theme selector
+        document.getElementById('themeSelect').addEventListener('change', function() {
+            if (this.value === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            localStorage.setItem('theme', this.value);
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.getElementById('themeSelect').value = savedTheme;
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Action buttons
+        document.getElementById('exportData').addEventListener('click', function() {
+            showNotification('Data export started. You will receive an email shortly.');
+        });
+
+        document.getElementById('resetSettings').addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                showNotification('Settings have been reset to default values.');
+            }
+        });
+
+        document.getElementById('clearCache').addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all cached data?')) {
+                showNotification('Cache cleared successfully.');
+            localStorage.removeItem('theme');
+                document.body.classList.remove('dark-mode');
+                document.getElementById('themeSelect').value = 'light';
+            }
+        });
+
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

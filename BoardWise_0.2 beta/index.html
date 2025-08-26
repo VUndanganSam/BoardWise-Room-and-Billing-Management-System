@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoardWise: Room & Billing Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <i class="fas fa-hotel"></i>
+                <h1>BoardWise</h1>
+                <p>Room & Billing Management System</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="remember-me">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" id="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn">Sign In</button>
+                
+                <div class="login-error" id="login-error"></div>
+            </form>
+            
+            <div class="demo-accounts">
+                <h3>Demo Accounts:</h3>
+                <div class="demo-account">
+                    <p><strong>Admin:</strong> admin / admin123</p>
+                    <p><strong>Manager:</strong> manager / manager123</p>
+                    <p><strong>Staff:</strong> staff / staff123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application (initially hidden) -->
+    <div id="app-container" class="hidden">
+        <!-- Mobile header -->
+        <div class="mobile-header">
+            <div class="mobile-logo">
+                <i class="fas fa-hotel"></i>
+                <span>BoardWise</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="container">
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="logo">
+                    <i class="fas fa-hotel"></i>
+                    <span>BoardWise</span>
+                </div>
+                
+                <div class="buttons">
+                    <div class="button active" data-page="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </div>
+                    <div class="button" data-page="room-management">
+                        <i class="fas fa-bed"></i>
+                        <span>Room Management</span>
+                    </div>
+                    <div class="button" data-page="billing">
+                        <i class="fas fa-receipt"></i>
+                        <span>Billing & Invoices</span>
+                    </div>
+                    <div class="button" data-page="guests">
+                        <i class="fas fa-users"></i>
+                        <span>Guests</span>
+                    </div>
+                    <div class="button" data-page="reservations">
+                        <i class="fas fa-calendar"></i>
+                        <span>Reservations</span>
+                    </div>
+                    <div class="button" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </div>
+                    <div class="button" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Dashboard Page -->
+                <div class="page active" id="dashboard-page">
+                    <header>
+                        <h1>Room & Billing Dashboard</h1>
+                        <div class="user-info">
+                            <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="User">
+                            <div>
+                                <div id="user-display-name">Manager</div>
+                                <div class="user-role" id="user-role">Administrator</div>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Occupied Rooms</div>
+                                <div class="card-icon">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                            </div>
+                            <div class="stat">12/24</div>
+                            <div class="stat-desc">50% occupancy rate</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Today's Revenue</div>
+                                <div class="card-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                            <div class="stat">$2,845</div>
+                            <div class="stat-desc">+15% from yesterday</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Pending Check-ins</div>
+                                <div class="card-icon">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                            </div>
+                            <div class="stat">5</div>
+                            <div class="stat-desc">2 VIP guests</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Unpaid Invoices</div>
+                                <div class="card-icon">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                            </div>
+                            <div class="stat">3</div>
+                            <div class="stat-desc">Total: $1,240</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>Room Status Overview</h2>
+                        <div class="room-status-grid">
+                            <div class="room-status-item available">
+                                <div class="room-status-icon">
+                                    <i class="fas fa-door-open"></i>
+                                </div>
+                                <div class="room-status-content">
+                                    <div class="room-status-title">Available Rooms</div>
+                                    <div class="room-status-count">12</div>
+                                </div>
+                            </div>
+                            
+                            <div class="room-status-item occupied">
+                                <div class="room-status-icon">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                                <div class="room-status-content">
+                                    <div class="room-status-title">Occupied Rooms</div>
+                                    <div class="room-status-count">8</div>
+                                </div>
+                            </div>
+                            
+                            <div class="room-status-item maintenance">
+                                <div class="room-status-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="room-status-content">
+                                    <div class="room-status-title">Maintenance</div>
+                                    <div class="room-status-count">3</div>
+                                </div>
+                            </div>
+                            
+                            <div class="room-status-item cleaning">
+                                <div class="room-status-icon">
+                                    <i class="fas fa-broom"></i>
+                                </div>
+                                <div class="room-status-content">
+                                    <div class="room-status-title">Cleaning</div>
+                                    <div class="room-status-count">1</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>Recent Bills</h2>
+                        <div class="table-container">
+                            <table class="billing-table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Guest Name</th>
+                                        <th>Room #</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>INV-0058</td>
+                                        <td>John Smith</td>
+                                        <td>204</td>
+                                        <td>$320.00</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>INV-0057</td>
+                                        <td>Emma Johnson</td>
+                                        <td>312</td>
+                                        <td>$485.50</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>INV-0056</td>
+                                        <td>Robert Williams</td>
+                                        <td>105</td>
+                                        <td>$225.75</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>INV-0055</td>
+                                        <td>Maria Garcia</td>
+                                        <td>408</td>
+                                        <td>$620.00</td>
+                                        <td><span class="status-badge overdue">Overdue</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other pages would go here -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>Copyright © 2023 BoardWise Boarding House System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // User accounts data
+        const users = {
+            'admin': { password: 'admin123', name: 'System Administrator', role: 'Administrator' },
+            'manager': { password: 'manager123', name: 'John Doe', role: 'Manager' },
+            'staff': { password: 'staff123', name: 'Jane Smith', role: 'Staff' }
+        };
+
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const username = localStorage.getItem('username');
+            
+            if (isLoggedIn === 'true' && username) {
+                showApp(username);
+            }
+        }
+
+        // Show the main application
+        function showApp(username) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app-container').classList.remove('hidden');
+            
+            // Update user info
+            const user = users[username];
+            if (user) {
+                document.getElementById('user-display-name').textContent = user.name;
+                document.getElementById('user-role').textContent = user.role;
+            }
+        }
+
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            const errorDiv = document.getElementById('login-error');
+            
+            // Validate credentials
+            if (users[username] && users[username].password === password) {
+                // Successful login
+                errorDiv.textContent = '';
+                
+                // Save login state
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', username);
+                
+                if (rememberMe) {
+                    localStorage.setItem('rememberMe', 'true');
+                } else {
+                    localStorage.removeItem('rememberMe');
+                }
+                
+                showApp(username);
+            } else {
+                // Failed login
+                errorDiv.textContent = 'Invalid username or password. Please try again.';
+            }
+        });
+
+        // Handle logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            // Clear login state
+            localStorage.removeItem('isLoggedIn');
+            
+            // If "remember me" was not checked, clear username too
+            if (localStorage.getItem('rememberMe') !== 'true') {
+                localStorage.removeItem('username');
+            }
+            
+            // Show login page and hide app
+            document.getElementById('login-page').style.display = 'flex';
+            document.getElementById('app-container').classList.add('hidden');
+            
+            // Clear login form
+            document.getElementById('login-form').reset();
+        });
+
+        // Forgot password link
+        document.getElementById('forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Please contact system administrator to reset your password.');
+        });
+
+        // Navigation functionality
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.id === 'logout-btn') return;
+                
+                const pageId = this.getAttribute('data-page') + '-page';
+                
+                // Update active button
+                document.querySelectorAll('.button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show the selected page
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+                
+                // On mobile, close sidebar after selection
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('active') &&
+                !sidebar.contains(event.target) &&
+                !menuToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Check login status when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+        });
+    </script>
+</body>
+</html>
